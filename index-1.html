@@ -1,144 +1,10 @@
-<?php
-include '../application/bdd_connection.php';
-
-
- if(isset($_POST['log-out'])){
-
-session_destroy();
-
-header('Location: login.php');
-
-}
-
-$query =
-
-'
-SELECT
-titre
-FROM
-Categorie
-';
-
-$resultSet = $pdo->query($query);
-$couleurs = $resultSet->fetchAll();
-
-
-$query =
-
-'
-SELECT
-COUNT(id) as nb
-FROM
-Produit
-WHERE
-id_categorie=1
-';
-
-$resultSet = $pdo->query($query);
-$brune = $resultSet->fetchAll();
-
-
-$query =
-
-'
-SELECT
-COUNT(id) as nb
-FROM
-Produit
-WHERE
-id_categorie=2
-';
-
-$resultSet = $pdo->query($query);
-$blonde = $resultSet->fetchAll();
-
-
-
-$query =
-
-'
-SELECT
-COUNT(id) as nb
-FROM
-Produit
-WHERE
-id_categorie=3
-';
-
-$resultSet = $pdo->query($query);
-$ambree = $resultSet->fetchAll();
-
-$query =
-'
-SELECT
-  SUM(ventes) as vente
-FROM
-  Produit
-WHERE
-  id_categorie = 1
-';
-
-$resultSet = $pdo->prepare($query);
-$resultSet->execute();
-$vbrune = $resultSet->fetchAll();
-
-$query =
-'
-SELECT
-  SUM(ventes) as vente
-FROM
-  Produit
-WHERE
-  id_categorie = 2
-';
-
-$resultSet = $pdo->prepare($query);
-$resultSet->execute();
-$vblonde = $resultSet->fetchAll();
-
-
-$query =
-'
-SELECT
-  SUM(ventes) as vente
-FROM
-  Produit
-WHERE
-  id_categorie = 3
-';
-
-$resultSet = $pdo->prepare($query);
-$resultSet->execute();
-$vambree = $resultSet->fetchAll();
-
-
-function get_ip()
-{
-    if ( isset ( $_SERVER['HTTP_X_FORWARDED_FOR'] ) )
-    {
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }
-    elseif ( isset ( $_SERVER['HTTP_CLIENT_IP'] ) )
-    {
-        $ip  = $_SERVER['HTTP_CLIENT_IP'];
-    }
-    else
-    {
-        $ip = $_SERVER['REMOTE_ADDR'];
-    }
-    return $ip;
-}
-$ip = get_ip();
-var_dump($ip);
-?>
-
 <!doctype html>
 <html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dashboard V.1 | jeweler - Material Admin Template</title>
+    <title>Dashboard V.2 | jeweler - Material Admin Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -203,24 +69,24 @@ var_dump($ip);
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index.php"><img class="main-logo" src="img/logo/logob.gif" alt="" width='200px';/></a>
+                <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
                 <strong><img src="img/logo/logosn.png" alt="" /></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
                         <li class="active">
-                            <a class="has-arrow" href="index.php">
+                            <a class="has-arrow" href="index.html">
 								   <i class="fa big-icon fa-home icon-wrap"></i>
 								   <span class="mini-click-non">Ecommerce</span>
 								</a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Accueil" href="index.php"><i class="fa fa-bullseye sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Accueil admin</span></a></li>
-                                <li><a title="Accueil" href="admin.php"><i class="fa fa-bullseye sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Liste admin</span></a></li>
-                                <li><a title="Liste bières" href="product-list.php"><i class="fa fa-female sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Liste des bières</span></a></li>
-                                <li><a title="Liste bières" href="clients.php"><i class="fa fa-female sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Liste des clients</span></a></li>
-                                <li><a title="Liste ville" href="ville-list.php"><i class="fa fa-heart-o sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Liste des villes</span></a></li>
-                                <li><a title="Liste ville" href="cmd.php"><i class="fa fa-heart-o sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Liste des commandes</span></a></li>
+                                <li><a title="Dashboard v.1" href="index.html"><i class="fa fa-bullseye sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Dashboard v.1</span></a></li>
+                                <li><a title="Dashboard v.2" href="index-1.html"><i class="fa fa-circle-o sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Dashboard v.2</span></a></li>
+                                <li><a title="Dashboard v.3" href="index-2.html"><i class="fa fa-cube sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Dashboard v.3</span></a></li>
+                                <li><a title="Product List" href="product-list.html"><i class="fa fa-female sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Product List</span></a></li>
+                                <li><a title="Product Edit" href="product-edit.html"><i class="fa fa-bolt sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Product Edit</span></a></li>
+                                <li><a title="Product Detail" href="product-detail.html"><i class="fa fa-heart-o sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Product Detail</span></a></li>
                                 <li><a title="Product Cart" href="product-cart.html"><i class="fa fa-level-down sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Product Cart</span></a></li>
                                 <li><a title="Product Payment" href="product-payment.html"><i class="fa fa-location-arrow sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Product Payment</span></a></li>
                                 <li><a title="Analytics" href="analytics.html"><i class="fa fa-line-chart sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Analytics</span></a></li>
@@ -480,11 +346,11 @@ var_dump($ip);
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
 															<i class="fa fa-user adminpro-user-rounded header-riht-inf" aria-hidden="true"></i>
-															<span class="admin-name">Menu</span>
+															<span class="admin-name">Advanda Cro</span>
 															<i class="fa fa-angle-down adminpro-icon adminpro-down-arrow"></i>
 														</a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="register.php"><span class="fa fa-home author-log-ic"></span>Register</a>
+                                                        <li><a href="register.html"><span class="fa fa-home author-log-ic"></span>Register</a>
                                                         </li>
                                                         <li><a href="#"><span class="fa fa-user author-log-ic"></span>My Profile</a>
                                                         </li>
@@ -492,10 +358,8 @@ var_dump($ip);
                                                         </li>
                                                         <li><a href="#"><span class="fa fa-cog author-log-ic"></span>Settings</a>
                                                         </li>
-                                                        <form method="post">
-                                                          <li><a href="login.php"><span class="fa fa-lock author-log-ic"></span>Log Out</a>
+                                                        <li><a href="login.html"><span class="fa fa-lock author-log-ic"></span>Log Out</a>
                                                         </li>
-                                                      </form>
                                                     </ul>
                                                 </li>
                                                 <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-tasks"></i></a>
@@ -897,18 +761,18 @@ var_dump($ip);
                                 <nav id="dropdown">
                                     <ul class="mobile-menu-nav">
                                         <li><a data-toggle="collapse" data-target="#Charts" href="#">Home <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
-                                          <ul class="submenu-angle" aria-expanded="true">
-                                              <li><a title="Accueil" href="index.php"><i class="fa fa-bullseye sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Accueil admin</span></a></li>
-                                              <li><a title="Accueil" href="admin.php"><i class="fa fa-bullseye sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Liste admin</span></a></li>
-                                              <li><a title="Liste bières" href="product-list.php"><i class="fa fa-female sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Liste des bières</span></a></li>
-                                              <li><a title="Liste ville" href="ville-list.php"><i class="fa fa-heart-o sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Liste des villes</span></a></li>
-                                              <li><a title="Liste bières" href="product-list.php"><i class="fa fa-female sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Liste des clients</span></a></li>
-                                              <li><a title="Liste ville" href="clients.php"><i class="fa fa-heart-o sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Liste des commandes</span></a></li>
-                                              <li><a title="Product Cart" href="product-cart.html"><i class="fa fa-level-down sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Product Cart</span></a></li>
-                                              <li><a title="Product Payment" href="product-payment.html"><i class="fa fa-location-arrow sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Product Payment</span></a></li>
-                                              <li><a title="Analytics" href="analytics.html"><i class="fa fa-line-chart sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Analytics</span></a></li>
-                                              <li><a title="Widgets" href="widgets.html"><i class="fa fa-magnet sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Widgets</span></a></li>
-                                          </ul>
+                                            <ul class="collapse dropdown-header-top">
+                                                <li><a href="index.html">Dashboard v.1</a></li>
+                                                <li><a href="index-1.html">Dashboard v.2</a></li>
+                                                <li><a href="index-3.html">Dashboard v.3</a></li>
+                                                <li><a href="product-list.html">Product List</a></li>
+                                                <li><a href="product-edit.html">Product Edit</a></li>
+                                                <li><a href="product-detail.html">Product Detail</a></li>
+                                                <li><a href="product-cart.html">Product Cart</a></li>
+                                                <li><a href="product-payment.html">Product Payment</a></li>
+                                                <li><a href="analytics.html">Analytics</a></li>
+                                                <li><a href="widgets.html">Widgets</a></li>
+                                            </ul>
                                         </li>
                                         <li><a data-toggle="collapse" data-target="#demo" href="#">Mailbox <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="demo" class="collapse dropdown-header-top">
@@ -1048,7 +912,7 @@ var_dump($ip);
                                         <ul class="breadcome-menu">
                                             <li><a href="#">Home</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">Dashboard V.1</span>
+                                            <li><span class="bread-blod">Dashboard V.2</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -1059,22 +923,19 @@ var_dump($ip);
                 </div>
             </div>
         </div>
-        <div class="section-admin container-fluid">
+        <div class="section-admin container-fluid res-mg-t-15">
             <div class="row admin text-center">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <div class="admin-content analysis-progrebar-ctn res-mg-t-15">
-                                <h4 class="text-left text-uppercase"><b>Bières</b></h4>
+                            <div class="admin-content analysis-progrebar-ctn">
+                                <h4 class="text-left text-uppercase"><b>Orders</b></h4>
                                 <div class="row vertical-center-box vertical-center-box-tablet">
                                     <div class="col-xs-3 mar-bot-15 text-left">
                                         <label class="label bg-green">30% <i class="fa fa-level-up" aria-hidden="true"></i></label>
                                     </div>
                                     <div class="col-xs-9 cus-gh-hd-pro">
-                                      <!-- <button type="button" id="btn">OK</button> -->
-                                      <div class="label bg-green" id="zack" style="font-size: 22px;"></div>
-
-                                        <h2 class="text-right no-margin"></h2>
+                                        <h2 class="text-right no-margin">10,000</h2>
                                     </div>
                                 </div>
                                 <div class="progress progress-mini">
@@ -1084,15 +945,13 @@ var_dump($ip);
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-bottom:1px;">
                             <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
-                                <h4 class="text-left text-uppercase"><b>Nombre de clients</b></h4>
+                                <h4 class="text-left text-uppercase"><b>Tax Deduction</b></h4>
                                 <div class="row vertical-center-box vertical-center-box-tablet">
                                     <div class="text-left col-xs-3 mar-bot-15">
                                         <label class="label bg-red">15% <i class="fa fa-level-down" aria-hidden="true"></i></label>
                                     </div>
                                     <div class="col-xs-9 cus-gh-hd-pro">
-                                      <div class="label bg-red" id="zack2" style="font-size: 22px;"></div>
-
-                                        <h2 class="text-right no-margin"></h2>
+                                        <h2 class="text-right no-margin">5,000</h2>
                                     </div>
                                 </div>
                                 <div class="progress progress-mini">
@@ -1102,14 +961,13 @@ var_dump($ip);
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
-                                <h4 class="text-left text-uppercase"><b>Bières vendues</b></h4>
+                                <h4 class="text-left text-uppercase"><b>Revenue</b></h4>
                                 <div class="row vertical-center-box vertical-center-box-tablet">
                                     <div class="text-left col-xs-3 mar-bot-15">
                                         <label class="label bg-blue">50% <i class="fa fa-level-up" aria-hidden="true"></i></label>
                                     </div>
                                     <div class="col-xs-9 cus-gh-hd-pro">
-                                      <div class="label bg-blue" id="argent" style="font-size: 22px;"></div>
-                                      <h2 class="text-right no-margin"></h2>
+                                        <h2 class="text-right no-margin">$70,000</h2>
                                     </div>
                                 </div>
                                 <div class="progress progress-mini">
@@ -1119,14 +977,13 @@ var_dump($ip);
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                             <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
-                                <h4 class="text-left text-uppercase"><b>Stock bières</b></h4>
+                                <h4 class="text-left text-uppercase"><b>Yearly Sales</b></h4>
                                 <div class="row vertical-center-box vertical-center-box-tablet">
                                     <div class="text-left col-xs-3 mar-bot-15">
                                         <label class="label bg-purple">80% <i class="fa fa-level-up" aria-hidden="true"></i></label>
                                     </div>
                                     <div class="col-xs-9 cus-gh-hd-pro">
-                                      <div id="stock" class="label bg-purple" style="font-size: 22px;"></div>
-                                        <h2 class="text-right no-margin"></h2>
+                                        <h2 class="text-right no-margin">$100,000</h2>
                                     </div>
                                 </div>
                                 <div class="progress progress-mini">
@@ -1141,61 +998,39 @@ var_dump($ip);
         <div class="product-sales-area mg-tb-30">
             <div class="container-fluid">
                 <div class="row">
-
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-sales-chart">
-<h3 style="text-align: center";>Répartition des bières</h3>
-                          <div id="pie-chart";>
-                              <canvas id="piechart"  height="100px";></canvas>
-                          </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                        <div class="product-sales-chart">
-                    <h3 style="text-align: center";>Détails des ventes</h3>
-                          <div id="pie-chart";>
-                              <canvas id="pie"  height="100px";></canvas>
-                          </div>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="white-box analytics-info-cs mg-b-10 res-mg-t-30">
-                          <h4 class="text-left text-uppercase"><b>Argent in the pocket (en €)</b></h4>
-
-
-                            <div id="gains" style="font-size: 22px;"></div>
-                              <img src="img/notification/money.gif" width:'200px';>
-                        </div>
-                        <div  class="white-box analytics-info-cs mg-b-10">
-                            <h3 class="box-title">Nombre de commande</h3>
-                            <div id="commande"></div>
-
-
-                        </div>
-                        <div class="white-box analytics-info-cs mg-b-10">
-                            <h3 class="box-title">Unique Visitor</h3>
-                            <ul class="list-inline two-part-sp">
+                            <div class="portlet-title">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="caption pro-sl-hd">
+                                            <span class="caption-subject text-uppercase"><b>Product Sales</b></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="actions graph-rp">
+                                            <div class="btn-group" data-toggle="buttons">
+                                                <label class="btn btn-grey active">
+													<input type="radio" name="options" class="toggle" id="option1" checked="">Today</label>
+                                                <label class="btn btn-grey">
+													<input type="radio" name="options" class="toggle" id="option2">Week</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-inline cus-product-sl-rp">
                                 <li>
-                                    <div id="sparklinedash3"></div>
+                                    <h5><i class="fa fa-circle" style="color: #24caa1;"></i>Bags</h5>
                                 </li>
-                                <li class="text-right"><i class="fa fa-level-up" aria-hidden="true"></i> <span class="counter text-info">6011</span></li>
-                            </ul>
-                        </div>
-                        <div class="white-box analytics-info-cs">
-                            <h3 class="box-title">Bounce Rate</h3>
-                            <ul class="list-inline two-part-sp">
                                 <li>
-                                    <div id="sparklinedash4"></div>
+                                    <h5><i class="fa fa-circle" style="color: #00b5c2;"></i>Shoes</h5>
                                 </li>
-                                <li class="text-right"><i class="fa fa-level-down" aria-hidden="true"></i> <span class="text-danger">18%</span></li>
+                                <li>
+                                    <h5><i class="fa fa-circle" style="color: #ff7f5a;"></i>Jewelery</h5>
+                                </li>
                             </ul>
+                            <div id="morris-area-chart" style="height: 356px;"></div>
                         </div>
                     </div>
                 </div>
@@ -1391,7 +1226,7 @@ var_dump($ip);
         <div class="product-sales-area mg-tb-30">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-sales-chart">
                             <div class="portlet-title">
                                 <div class="row">
@@ -1417,36 +1252,16 @@ var_dump($ip);
                             </div>
                             <ul class="list-inline cus-product-sl-rp">
                                 <li>
-                                    <h5><i class="fa fa-circle" style="color: #24caa1;"></i>Bières</h5>
+                                    <h5><i class="fa fa-circle" style="color: #24caa1;"></i>Bags</h5>
                                 </li>
                                 <li>
-                                    <h5><i class="fa fa-circle" style="color: #888;"></i>Villes</h5>
+                                    <h5><i class="fa fa-circle" style="color: #888;"></i>Shoes</h5>
                                 </li>
                                 <li>
-                                    <h5><i class="fa fa-circle" style="color: #ff7f5a;"></i>Litres d'alcool vendus</h5>
+                                    <h5><i class="fa fa-circle" style="color: #ff7f5a;"></i>Jewelery</h5>
                                 </li>
                             </ul>
                             <div id="extra-area-chart"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <div class="analytics-rounded mg-b-10 res-mg-t-30">
-                            <div class="analytics-rounded-content">
-                                <h5>Percentage distribution</h5>
-                                <h2><span class="counter">60</span>/20</h2>
-                                <div class="text-center">
-                                    <div id="sparkline51"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="analytics-rounded">
-                            <div class="analytics-rounded-content">
-                                <h5>Percentage division</h5>
-                                <h2><span class="counter">150</span>/<span class="counter">54</span></h2>
-                                <div class="text-center">
-                                    <div id="sparkline52"></div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1462,7 +1277,7 @@ var_dump($ip);
                                     <h2>Jon Royita</h2>
                                     <p>Founder of Uttara It Park</p>
                                 </div>
-                                <img src="img/notification/serv1.jpg" class="img-circle circle-border m-b-md" alt="profile" width="200px";>
+                                <img src="img/notification/5.jpg" class="img-circle circle-border m-b-md" alt="profile">
                                 <div class="social-widget-result">
                                     <span>100 Tweets</span> |
                                     <span>350 Following</span> |
@@ -1483,7 +1298,7 @@ var_dump($ip);
                         <div class="author-widgets-single res-mg-t-30">
                             <div class="author-wiget-inner">
                                 <div class="perso-img">
-                                    <img src="img/notification/serv2.jpg" class="img-circle circle-border m-b-md" alt="profile" width="200px";>
+                                    <img src="img/notification/6.jpg" class="img-circle circle-border m-b-md" alt="profile">
                                 </div>
                                 <div class="persoanl-widget-hd persoanl1-widget-hd">
                                     <h2>Fire Foxy</h2>
@@ -1512,7 +1327,7 @@ var_dump($ip);
                                     <h2>Jon Royita</h2>
                                     <p>Founder of Uttara It Park</p>
                                 </div>
-                                <img src="img/notification/serv3.jpg" class="img-circle circle-border m-b-md" alt="profile" width="200px";>
+                                <img src="img/contact/2.jpg" class="img-circle circle-border m-b-md" alt="profile">
                                 <div class="social-widget-result">
                                     <span>100 Tweets</span> |
                                     <span>350 Following</span> |
@@ -1608,114 +1423,6 @@ var_dump($ip);
     <!-- main JS
 		============================================ -->
     <script src="js/main.js"></script>
-    <!-- roundedchart -->
-    <script src="js/charts/Chart.js"></script>
-    <script src="js/charts/rounded-chart.js"></script>
-
-
-
-    <script>
-    $(document).ready(function(){
-      function compta(){
-
-        $.ajax({
-          url: 'ajax.php',
-          dataType: 'json',
-          success: function(data){
-            //alert data
-            $('#zack').html(data.NombreBiere);
-            $('#zack2').html(data.NombreClient);
-            $('#argent').html(data.VentesFaites);
-            $('#stock').html(data.StockTotal);
-            $('#gains').html(data.GainsFait);
-            $('#commande').html(data.NombreCommande);
-          }
-        });
-      }
-      setInterval(compta, 1000);
-    });
-
-
-    (function ($) {
-     "use strict";
-
-      var ctx = document.getElementById("piechart");
-    	var piechart = new Chart(ctx, {
-    		type: 'pie',
-    		data: {
-
-    			labels: [<?php foreach ($couleurs as $cou): ?>
-            "<?= $cou['titre'] ?>",
-          <?php endforeach ?>],
-    			datasets: [{
-    				label: 'pie Chart',
-                    backgroundColor: [
-    					'rgb(0, 0, 0)',
-    					'rgb(204, 166, 38)',
-    					'rgb(238, 137, 23)',
-    					'#03a9f4',
-    					'#303030'
-    				],
-    				data: [<?php foreach ($blonde as $blo): ?>
-              "<?= $blo['nb'] ?>"
-              <?php endforeach ?>,
-              <?php foreach ($brune as $bru): ?>
-                "<?= $bru['nb'] ?>"
-                <?php endforeach ?>,
-                <?php foreach ($ambree as $amb): ?>
-                  "<?= $amb['nb'] ?>"
-                  <?php endforeach ?>]
-                }]
-    		},
-    		options: {
-    			responsive: true
-    		}
-
-  	});
-})(jQuery);
-
-
-
-(function ($) {
- "use strict";
-
-  var ctx = document.getElementById("pie");
-  var piechart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-
-      labels: [<?php foreach ($couleurs as $cou): ?>
-        "<?= $cou['titre'] ?>",
-      <?php endforeach ?>],
-      datasets: [{
-        label: 'pie Chart',
-                backgroundColor: [
-          'rgb(0, 0, 0)',
-          'rgb(204, 166, 38)',
-          'rgb(238, 137, 23)',
-          '#03a9f4',
-          '#303030'
-        ],
-        data: [<?php foreach ($vbrune as $brune): ?>
-          "<?= $brune['vente'] ?>"
-          <?php endforeach ?>,
-          <?php foreach ($vblonde as $blonde): ?>
-            "<?= $blonde['vente'] ?>"
-            <?php endforeach ?>,
-            <?php foreach ($vambree as $ambree): ?>
-              "<?= $ambree['vente'] ?>"
-              <?php endforeach ?>]
-            }]
-    },
-    options: {
-      responsive: true
-    }
-
-});
-})(jQuery);
-
-
-</script>
 </body>
 
 </html>
